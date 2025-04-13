@@ -61,6 +61,8 @@ This enables smarter, faster decisions across sales, operations, and marketing f
 
 ## Data Sources
 
+What is data coming from? The data is sourced from Kaggle (an Excel extract), [see here to find it]().
+
 | Table         | Description                                                                 |
 |---------------|-----------------------------------------------------------------------------|
 | Fact_Sales    | Transactional data including quantity, sales (USD), and cost of goods sold  |
@@ -227,34 +229,50 @@ The dashboard includes:
 
 ### Insights
 
-This analysis provides a multidimensional view of sales and profitability using both transactional and dimensional data. The primary insights were obtained by leveraging time intelligence (YTD vs PYTD), product hierarchy, geographic distribution, and customer account data.
+This analysis provides a multidimensional view of performance using sales revenue, quantity sold, and gross profit across two full years (2023 vs 2024). Insights are driven by time series trends, country-level contribution, product type breakdown and account-level segmentation.
 
 Key insights include:
 
-- **Sales volume has slightly declined** compared to the same period last year, with a negative YTD vs PYTD delta of approximately $135,000.
-- **Gross profit margin remains strong (39.15%)**, indicating sound pricing and cost management practices despite the slight revenue drop.
-- **April represents a significant turning point** with the sharpest drop in revenue and profitability, disrupting an otherwise stable trend.
-- The **Landscape product family demonstrates consistent contribution** to revenue and profit across all months.
-- **Indoor and Outdoor categories show volatility**, likely influenced by seasonal demand or inconsistent customer interest.
-- The **bottom 10 countries** (by YTD vs PYTD delta) include Canada, Colombia, Germany, and Croatia, signaling region-specific challenges.
+- **Sales, Quantity, and Gross Profit all declined in 2024 vs 2023**, with Sales showing the sharpest drop:
+  - **Sales** YTD: ↓ from **13M to 3.57M**
+  - **Quantity** YTD: ↓ from **555K to 148K**
+  - **Gross Profit** YTD: ↓ from **5.15M to 1.40M**  
+  Despite these drops, **GP% remained stable at ~39%**, suggesting good margin control and cost management.
+
+- **April is the weakest month in both years across all metrics**, pointing to possible seasonal or operational disruption.
+
+- **Landscape products remain stable** in both years and all metrics.  
+  **Indoor and Outdoor** product types are more volatile and fluctuate significantly, especially in Q2.
+
+- **Persistent underperformance in key countries**:  
+  - **Canada, Colombia, Germany, Croatia** repeatedly appear in the bottom YTD vs PYTD contributors for both 2023 and 2024.  
+  - Their presence across all three KPIs signals systemic issues rather than random shortfalls.
+
+- **Customer profitability patterns remained largely unchanged** year over year.  
+  Scatterplots reveal consistent clustering in the high-GP% but low-YTD-value quadrant.  
+  This indicates limited success in account growth or upsell efforts between years.
 
 ---
 
 ### Findings
 
-The findings go beyond surface metrics and suggest structural opportunities and risks:
+- **Performance drops are consistent across all KPIs**, confirming a widespread contraction rather than metric-specific anomalies.
 
-- **Canada and Colombia experienced steep revenue drops**, despite no apparent changes in customer base, which could point to macroeconomic or logistical issues.
-- **Some customer accounts exhibit high GP% but generate relatively low revenue**, suggesting underutilized premium client relationships.
-- **Product performance is unequally distributed**, with Landscape being stable and predictable, while Indoor/Outdoor suffer from demand fragmentation.
-- **Monthly performance variability is non-random**: April and Q2 in general show signs of seasonal or operational disruption worth further investigation.
-- **Price vs Quantity analysis indicates price sensitivity** in some markets — higher-priced items yield strong margins but with much lower volumes.
+- **April acts as a breaking point** in both years, showing steep declines.  
+  This month could reflect seasonality, supply constraints, or market behavior worth further investigation.
+
+- **The consistent GP% (~39%)** across both years despite lower volume and sales suggests the company preserved profitability at a unit level and avoided cost erosion or aggressive discounting.
+
+- **Product performance diverges by category**:  
+  - Landscape is a strong performer across metrics and years.  
+  - Indoor and Outdoor categories face volatility, suggesting inconsistent demand, channel misalignment, or lack of targeted campaigns.
+
+- **Low migration between customer profitability segments**:  
+  Scatterplots show few accounts moving from low-value to high-value, implying stagnation in account development.
 
 ---
 
 ### Recommendations
-
-To convert these findings into strategic business value, the following recommendations are proposed:
 
 #### 1. Regional Sales Optimization
 
@@ -279,25 +297,6 @@ To convert these findings into strategic business value, the following recommend
 - Evaluate supply chain responsiveness for Q2/Q3, as volatility in April may point to fulfillment or forecasting gaps.
 - Integrate this report into **monthly operations meetings** to align logistics and production with actual demand trends.
 - Use **scatter plot quadrant analysis** to define client segments for growth vs retention vs reactivation.
-  
----
-
-## Recommendations
-
-1. **Region Focus**  
-   - Run audits in Canada and Colombia  
-   - Explore root causes (distribution, pricing, economic factors)  
-   - Test localized marketing incentives  
-
-2. **Product Strategy**  
-   - Promote Landscape lines with consistent performance  
-   - Conduct surveys for Indoor/Outdoor seasonal preferences  
-   - Consider bundling and pricing optimization by segment  
-
-3. **Account Growth Plans**  
-   - Prioritize low-volume, high-margin customers for tailored offers  
-   - Segment clients by GP% and create scorecards for retention/churn risk  
-   - Monitor accounts with negative growth for proactive outreach
 
 ---
 
@@ -312,10 +311,10 @@ To convert these findings into strategic business value, the following recommend
 
 ## Business Value
 
-- Enables real-time monitoring of performance vs prior year  
-- Supports focused action by geography and product line  
-- Helps identify and develop customer growth opportunities  
-- Aligns cross-functional decisions through clear reporting
+- Provides clear visibility on year-over-year performance
+- Enables strategic interventions across teams
+- Supports profitability-driven account and product decisions
+- Acts as foundation for scalable, KPI-based monitoring
 
 ---
 
@@ -339,13 +338,12 @@ To convert these findings into strategic business value, the following recommend
 
 ## Conclusion
 
-This Power BI report provides a clear, data-driven assessment of Plant Co.'s year-to-date performance in 2024, enabling comparison with the previous year across multiple dimensions such as geography, product category, and customer profitability.
+This report consolidates key performance indicators into a dynamic and accessible format, offering a year-over-year comparison of Plant Co.'s sales, quantity, and gross profit.
 
-The insights uncovered in this report allow stakeholders to:
-- Detect early warning signs in underperforming regions  
-- Focus on high-potential customer segments and product lines  
-- Drive operational and strategic alignment across business units
+Stakeholders are equipped to:
 
-By leveraging dynamic metrics, time intelligence, and interactive visuals, the report acts as both a monitoring tool and a foundation for continuous performance improvement.
-
-Moving forward, integrating forecast data, customer satisfaction metrics, and drill-through analytics can further enhance the report's role in proactive decision-making.
+- Detect early signs of commercial underperformance
+- Make region- and product-specific decisions
+- Take action on customer segmentation insights
+  
+With consistent GP% and visible drops in volume, strategic focus should shift toward recovering quantity while retaining profit margins. 
