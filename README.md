@@ -175,7 +175,9 @@ PYTD_Quantity = CALCULATE([YTD_Quantity], SAMEPERIODLASTYEAR(Dim_Date[Date]))
 
 ```sql
 YTD vs PYTD Sales = [YTD_Sales] - [PYTD_Sales]
+
 YTD vs PYTD GP = [YTD_GrossProfit] - [PYTD_GrossProfit]
+
 YTD vs PYTD Quantity = [YTD_Quantity] - [PYTD_Quantity]
 ```
 
