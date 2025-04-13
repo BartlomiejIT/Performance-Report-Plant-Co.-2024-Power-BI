@@ -6,13 +6,14 @@
 
 ## Table of Contents
 
-- [Objective](#objective)  
+- [Objective](#objective)
+- [Business Context](#business-context)    
 - [User Story](#user-story)  
 - [Data Sources](#data-sources)  
 - [Tools](#tools)  
 - [Design](#design)  
 - [Dashboard Mockup](#dashboard-mockup)  
-- [Development](#development)  
+- [Development Process](#development-process)  
   - [Pseudocode](#pseudocode)  
   - [Data Review](#data-review)  
   - [Data Preparation (Power Query)](#data-preparation-power-query)  
@@ -20,8 +21,7 @@
 - [Testing](#testing)  
 - [Visualization](#visualization)  
 - [Analysis](#analysis)  
-  - [Insights](#insights)  
-  - [Findings](#findings)  
+  - [Insights](#insights)   
   - [Recommendations](#recommendations)  
   - [Action Plan](#action-plan)  
 - [Business Value](#business-value)  
@@ -33,65 +33,61 @@
 
 ## Objective
 
-This dashboard simulates a real-world use case for a mid-size B2B retail company in the horticulture sector, designed to support data-informed sales and operations planning.
+This Power BI report delivers a comprehensive performance assessment for **Plant Co.**, a mid-sized B2B horticulture company operating in international markets. The report focuses on **YTD vs PYTD comparisons for 2024 vs 2023**, measuring Sales, Quantity, and Gross Profit at various levels of granularity: region, product family, and customer account.
 
-The goal of this report is to evaluate Plant Co.'s sales and profitability performance in 2024 and compare it to the same period in the previous year (PYTD). By analyzing year-to-date trends across countries, products, and customer segments, the report highlights key drivers of growth and underperformance.
+Through interactive dashboards and dynamic KPI selection, the report empowers decision-makers to uncover underperformance, assess customer profitability, and act on key opportunities to drive growth, retention, and operational efficiency.
 
-It supports strategic decisions by enabling:
+---
 
-- Identification of regional and product-level performance gaps  
-- Insights into customer profitability and account potential  
-- Data-driven planning for sales, marketing, and operations teams
+## Business Context
 
-The report equips stakeholders with a clear, timely view of business health and actionable priorities.
+Plant Co. operates in a highly seasonal and margin-sensitive industry, distributing horticultural goods such as indoor, outdoor, and landscape products. The company faces fluctuations in demand due to weather cycles, pricing pressures, and shifting consumer priorities across regions.
+
+Given the competitive nature of the industry and the increasing need for data-driven planning, this dashboard simulates a scenario where Plant Co. needs to monitor short-term commercial performance while aligning long-term resource allocation with real profitability insights.
 
 ---
 
 ## User Story
 
-As a business manager at Plant Co., I want to understand how current sales and profitability compare to the previous year, so I can:
-
-- Spot negative trends early and take corrective action  
-- Identify high-performing regions, products, and accounts  
-- Prioritize resources and align initiatives with revenue goals  
-
-This enables smarter, faster decisions across sales, operations, and marketing functions based on reliable and timely data.
+> *As a Sales & Operations Manager at Plant Co., I need a real-time report that shows how we’re performing against last year across revenue, volume, and margin metrics. I want to understand where we are losing momentum (countries, products, accounts), and I need clear indicators on which levers to pull – whether it’s pricing, marketing, or customer outreach – to hit our targets for the rest of the year.*
 
 ---
 
 ## Data Sources
 
-What is data coming from? The data is sourced from Kaggle (an Excel extract), [see here to find it]().
+The dataset used in this analysis is a simulated dataset created for educational purposes. It includes tables such as:
 
 | Table         | Description                                                                 |
 |---------------|-----------------------------------------------------------------------------|
-| Fact_Sales    | Transactional data including quantity, sales (USD), and cost of goods sold  |
-| Dim_Product   | Product attributes: family, size, and type                                  |
-| Dim_Account   | Customer location, country, and segmentation info                           |
-| Dim_Date      | Calendar table used for time intelligence (YTD, PYTD)                       |
-| Slic_Values   | Parameter table for dynamic metric switching (Sales, GP, Quantity)          |
+| `Fact_Sales`    | Transactional data including quantity, sales (USD), and cost of goods sold  |
+| `Dim_Product`   | Product attributes: family, size, and type                                  |
+| `Dim_Account`   | Customer location, country, and segmentation info                           |
+| `Dim_Date`      | Calendar table used for time intelligence (YTD, PYTD)                       |
+| `Slic_Values`   | Parameter table for dynamic metric switching (Sales, GP, Quantity)          |
 
 ---
 
 ## Tools
 
-| Tool       | Purpose                                               |
-|------------|-------------------------------------------------------|
-| Power BI   | Interactive reporting, DAX modeling, data visualization |
-| Excel      | Initial data exploration                              |
-| DAX        | Time-based calculations, KPI definitions, SWITCH logic |
+| Tool        | Purpose                                                                      |
+|-------------|------------------------------------------------------------------------------|
+| Power BI    | Interactive dashboard, relationship modeling, user-driven analysis           |
+| Power Query | ETL: deduplication, schema alignment, column renaming                        |
+| DAX         | Time intelligence (YTD, PYTD), KPI definitions, dynamic SWITCH logic         |
+| Excel       | Initial exploration and QA of raw dataset                                    |
 
 ---
 
 ## Design
 
-The dashboard was designed with the following key questions in mind:
+The dashboard was designed to answer the following key business questions:
 
-1. What is the company’s current YTD performance vs previous year?
-2. Which countries or customer segments are underperforming?
-3. What is the profitability profile across product types and accounts?
-4. How does performance evolve monthly, and what are the drivers?
-
+1. How does current YTD performance compare to PYTD across Sales, Quantity, and Gross Profit?
+2. Which countries, product categories, or customer segments are underperforming?
+3. Are gross profit margins being maintained despite volume and revenue declines?
+4. What is causing repeated drops in specific months (e.g., April)?
+5. Which accounts are profitable but underutilized in terms of volume?
+   
 ---
 
 ## Dashboard Mockup
@@ -99,48 +95,52 @@ The dashboard was designed with the following key questions in mind:
 Visual components include:
 
 - KPI cards
-- Waterfall charts
-- Bar-line combo charts
-- Treemaps and scatter plots
+- Waterfall chart
+- Bar-line combo chart
+- Treemap and scatter plot
 
 ![image](https://github.com/user-attachments/assets/0f380a5e-f9e1-4bea-b2ed-0684e8371337)
 
 ---
 
-## Development
+## Development Process
 
 ### Pseudocode
 
-1. Review transactional and dimension tables  
-2. Define base measures (Sales, Quantity, Gross Profit)  
-3. Create time intelligence metrics (YTD, PYTD)  
-4. Add comparison measures (YTD vs PYTD)  
-5. Create SWITCH logic for metric selection  
-6. Build visuals with filters and interactions  
-7. Add tooltips, sorting, labels, and formatting  
-8. Test calculations for business logic  
-9. Present findings, insights, and recommendations
+1. Load Fact and Dimension tables into Power BI  
+2. In Power Query:  
+   - Remove duplicates  
+   - Rename columns for consistency  
+   - Change data types and promote headers  
+3. Define base and time intelligence measures in DAX  
+4. Create SWITCH-based logic for dynamic metric selection  
+5. Build dashboard visuals  
+6. Test and validate calculations
 
 ---
 
 ### Data Review
 
-- Sales data includes revenue and COGS at a transactional level  
-- Product table contains product categorization into Landscape, Indoor, Outdoor  
-- Dim_Date includes full calendar range required for time intelligence  
-- No major data quality issues detected – data is clean and analytical columns are consistent
+- Checked for missing/null values: none found  
+- Verified product categories: Indoor, Outdoor, Landscape  
+- Time granularity: full daily range for 2023 and 2024  
+- Keys: clean joins between fact and dimensions
 
 ---
 
 ### Data Preparation (Power Query)
 
-In the Power Query layer, several preprocessing steps were applied to ensure data quality and usability:
+- Cleaned `Dim_Product`, `Dim_Account` for duplicates  
+- Applied consistent naming and column typing
 
-- **Removed duplicates** from `Dim_Product` and `Dim_Account` to maintain key uniqueness  
-- **Renamed columns** in `Dim_Account` for better consistency and readability  
-- Applied standard steps such as `Promoted Headers` and `Changed Type` to align schema with data model requirements  
+  ![image](https://github.com/user-attachments/assets/07a929c4-474c-4677-a0d7-1baed92c587a)
 
-These transformations ensured clean and reliable dimension tables for relationship building and accurate aggregation in Power BI.
+  ![image](https://github.com/user-attachments/assets/e3f8cc7c-ec5f-4d0e-b6d3-6c8334537b8a)
+
+- Ensured proper table relationships in model view
+
+  ![image](https://github.com/user-attachments/assets/9fc068ff-59a6-4ef7-89f8-6b40d7298282)
+
 
 ---
 
@@ -205,145 +205,248 @@ YTD vs PYTD (Selected) = [Selected YTD] - [Selected PYTD]
 
 ## Testing
 
-- Verified YTD and PYTD match monthly calendar definitions  
-- Validated total vs breakdown in visuals (e.g., Sales by Month = sum of Sales by Country)  
-- SWITCH logic tested by toggling slicer between metrics  
-- Measures return correct values even with slicers applied
+| Test Scenario                               | Expected Result                          | Status |
+|---------------------------------------------|------------------------------------------|--------|
+| YTD Sales for Jan 2024                      | Sum of daily Sales in Jan 2024           | ✅     |
+| GP% = GP / Sales                            | Returns consistent ~39% across periods   | ✅     |
+| PYTD for March 2023 matches March 2023 data | Slicer accurately retrieves PYTD         | ✅     |
+| Metric toggle to Quantity updates visuals   | Chart values switch correctly            | ✅     |
 
 ---
 
 ## Visualization
 
 The dashboard includes:
+
 - KPI cards for YTD, PYTD, and GP%  
 - Waterfall chart showing contribution by month, country and product  
 - Combo chart for product type performance  
 - Treemap highlighting worst-performing countries  
 - Scatter plot for customer GP% vs volume segmentation
 
-![image](https://github.com/user-attachments/assets/a1a71197-cd0d-49d3-be48-8729fea41c4c)
+### - Gross Profit (2023-2024):
+  
+  - 2023:     
+  ![image](https://github.com/user-attachments/assets/1f59c2db-d16e-48d0-bbde-b701b6e77c5e)
+
+  - 2024:
+  ![image](https://github.com/user-attachments/assets/a1a71197-cd0d-49d3-be48-8729fea41c4c)
+
+### - Quantity (2023-2024):
+
+  - 2023:
+  ![image](https://github.com/user-attachments/assets/12ea3558-40d9-42af-8d81-a9127d1506c1)
+
+  - 2024:
+  ![image](https://github.com/user-attachments/assets/19420c90-11cf-4991-ac23-f442dd5d48c7)
+
+### - Sales (2023-2024):
+
+  - 2023:
+  ![image](https://github.com/user-attachments/assets/5e32d2cd-d312-442f-b1ca-6c78dfb6bfcb)
+
+  - 2024:
+  ![image](https://github.com/user-attachments/assets/4c06e0d0-4332-4808-bf3b-44ed8218da34)
 
 ---
 
 ## Analysis
 
-### Insights
+## Insights:
 
-This analysis provides a multidimensional view of performance using sales revenue, quantity sold, and gross profit across two full years (2023 vs 2024). Insights are driven by time series trends, country-level contribution, product type breakdown and account-level segmentation.
+This analysis provides evidence-based answers to five key business questions driving the performance review of Plant Co. between the current and prior year-to-date periods:
 
-Key insights include:
+### 1. How does current YTD performance compare to PYTD across Sales, Quantity, and Gross Profit?
 
-- **Sales, Quantity, and Gross Profit all declined in 2024 vs 2023**, with Sales showing the sharpest drop:
-  - **Sales** YTD: ↓ from **13M to 3.57M**
-  - **Quantity** YTD: ↓ from **555K to 148K**
-  - **Gross Profit** YTD: ↓ from **5.15M to 1.40M**  
-  Despite these drops, **GP% remained stable at ~39%**, suggesting good margin control and cost management.
+- **Sales Revenue** dropped significantly from **$13M in 2023** to **$3.57M in 2024**, indicating a major contraction in business activity (−72% YoY).
+- **Quantity Sold** followed a parallel decline, from **555K to 148K units** (−73%), suggesting that the performance drop is demand-related rather than price-driven.
+- **Gross Profit** decreased accordingly, from **$5.15M to $1.40M**, tracking closely with sales volume.
+- Importantly, the **Gross Profit Margin (GP%) remained stable (~39%)**, which shows resilience in cost control and pricing discipline.
 
-- **April is the weakest month in both years across all metrics**, pointing to possible seasonal or operational disruption.
+**Interpretation:** The company is maintaining unit profitability but suffering from systemic volume loss. This signals a need to stimulate demand, not to correct pricing or margin strategy.
 
-- **Landscape products remain stable** in both years and all metrics.  
-  **Indoor and Outdoor** product types are more volatile and fluctuate significantly, especially in Q2.
+### 2. Which countries, product categories, or customer segments are underperforming?
 
-- **Persistent underperformance in key countries**:  
-  - **Canada, Colombia, Germany, Croatia** repeatedly appear in the bottom YTD vs PYTD contributors for both 2023 and 2024.  
-  - Their presence across all three KPIs signals systemic issues rather than random shortfalls.
+- **Underperforming Countries:**  
+  - **Canada**, **Colombia**, and **Germany** consistently rank in the bottom quartile for Sales, Quantity, and Gross Profit. Their poor results appear across both 2023 and 2024, suggesting structural challenges rather than one-time dips.
+  - **Croatia** also emerged as a weak performer in 2024, particularly in Gross Profit.
 
-- **Customer profitability patterns remained largely unchanged** year over year.  
-  Scatterplots reveal consistent clustering in the high-GP% but low-YTD-value quadrant.  
-  This indicates limited success in account growth or upsell efforts between years.
+- **Product Category Performance:**  
+  - **Landscape products** have remained stable in performance and margin, offering consistent contribution.
+  - **Indoor and Outdoor categories** exhibit high volatility, with dramatic rises and falls in monthly performance—especially in Q2.
+  - These categories seem highly sensitive to seasonality, distribution timing, or inventory planning.
+
+- **Customer Segmentation:**  
+  - Scatterplots indicate a large number of **high-GP%, low-volume clients**—a classic signal of underutilized account potential.
+  - Few customers migrate between segments YoY, pointing to limited success in account development or upsell programs.
+
+**Interpretation:** Plant Co.’s growth is being limited by repeated regional underperformance, volatile products with demand misalignment, and a customer base that is not being actively matured.
+
+
+### 3. Are gross profit margins being maintained despite volume and revenue declines?
+
+- Yes. **GP% has remained strong and steady (~39%)** across both years, despite the revenue and quantity drops.
+- This suggests:
+  - Stable pricing policies
+  - Controlled costs (COGS)
+  - A lack of aggressive discounting to chase volume
+
+**Interpretation:** The company has retained pricing integrity and margin discipline. Therefore, recovery strategies should prioritize volume reactivation, not price cuts.
+
+
+### 4. What is causing repeated drops in specific months (e.g., April)?
+
+- **April stands out as a critical month**, showing the **lowest performance in both years** for all three KPIs.
+- This trend is consistent regardless of product type or region, indicating a **systemic issue**—not a localized or seasonal blip.
+- Likely causes include:
+  - Poor sales campaign alignment
+  - Inaccurate demand forecasting
+  - Inventory or fulfillment delays
+  - Lack of early-year customer reactivation efforts
+
+**Interpretation:** April requires special attention in planning cycles. Forecasting, logistics, and promotional strategy should be adjusted specifically for this month to avoid repeat losses.
+
+
+### 5. Which accounts are profitable but underutilized in terms of volume?
+
+- A significant portion of customers (visible in GP% vs Volume scatter plots) fall into the **“high margin, low value”** quadrant.
+- These clients generate strong per-unit profits but contribute very little to overall revenue.
+- There is **no meaningful migration of accounts** from low-value to higher-value segments between 2023 and 2024.
+
+**Interpretation:** These accounts represent a substantial opportunity. With targeted upsell campaigns, personalization, and engagement strategies, even modest increases in volume could have a major impact on overall profit growth.
+
+
+**Summary:**  
+Plant Co.’s core profitability is intact, but commercial performance is hindered by weak regional demand, product volatility, and passive account management. Addressing these weaknesses through targeted reactivation, better forecasting, and focused account development is key to restoring growth in 2024 and beyond.
 
 ---
 
-### Findings
+## Recommendations
 
-- **Performance drops are consistent across all KPIs**, confirming a widespread contraction rather than metric-specific anomalies.
+Based on the findings, the following strategic and operational recommendations are proposed to address root causes, recover performance, and unlock growth potential:
 
-- **April acts as a breaking point** in both years, showing steep declines.  
-  This month could reflect seasonality, supply constraints, or market behavior worth further investigation.
+### 1. Reactivate Demand in Underperforming Regions
 
-- **The consistent GP% (~39%)** across both years despite lower volume and sales suggests the company preserved profitability at a unit level and avoided cost erosion or aggressive discounting.
+- Conduct regional deep-dives in **Canada, Colombia, Germany**, and **Croatia** to identify root causes:
+  - Local market conditions
+  - Distribution challenges
+  - Competitive pricing dynamics
+- Assign regional recovery targets and track via monthly KPIs.
+- Launch **territory-specific marketing campaigns** tied to seasonal patterns and customer behavior.
+- Reengage dormant accounts in those countries with time-limited incentives or bundled product offers.
 
-- **Product performance diverges by category**:  
-  - Landscape is a strong performer across metrics and years.  
-  - Indoor and Outdoor categories face volatility, suggesting inconsistent demand, channel misalignment, or lack of targeted campaigns.
 
-- **Low migration between customer profitability segments**:  
-  Scatterplots show few accounts moving from low-value to high-value, implying stagnation in account development.
+### 2. Stabilize Product Portfolio with Data-Informed Planning
 
----
+- Increase promotional focus and distribution efficiency around **Landscape products**, which have shown stable demand and margin performance.
+- Conduct a **demand seasonality analysis** on **Indoor and Outdoor categories** to better align marketing and stock planning.
+- Introduce **dynamic inventory allocation** based on Q2 volatility trends.
+- Pilot **bundling strategies or cross-category promotions** to drive volume and smooth demand in off-peak months.
 
-### Recommendations
 
-#### 1. Regional Sales Optimization
+### 3. Improve Customer Segmentation and Targeted Growth
 
-- Conduct a deep-dive root cause analysis in **Canada and Colombia** to identify whether the decline is caused by distribution issues, competitive pressure, or customer attrition.
-- Initiate **localized incentive programs** and **reactivation campaigns** for dormant or declining accounts in those countries.
-- Implement **monthly monitoring KPIs** for YTD delta to catch emerging issues earlier.
+- Segment all accounts using a **GP% vs Volume matrix** to identify:
+  - “Grow” accounts (high GP%, low volume)
+  - “Defend” accounts (high GP%, high volume)
+  - “Monitor” accounts (low GP%, low volume)
+- Create tailored account development plans:
+  - “Grow” → Upsell programs and relationship-building
+  - “Monitor” → Evaluate for churn risk or margin erosion
+- Use **predictive analytics** to estimate lifetime value (LTV) and guide strategic focus.
+- Deploy account scorecards to track migration over time between segments.
 
-#### 2. Product Portfolio Strategy
 
-- Reinvest in **Landscape products**, which demonstrate high stability and customer retention.
-- Perform **customer preference analysis** for Indoor and Outdoor categories to inform redesign, repackaging, or repositioning efforts.
-- Introduce **bundle pricing or promotional offers** to drive volume without sacrificing gross margin.
+### 4. Address Operational Bottlenecks in April
 
-#### 3. Customer Account Segmentation
+- Treat **April as a strategic risk window**:  
+  - Introduce a proactive “April Readiness Playbook” that includes supply planning, sales readiness, and marketing alignment.
+- Launch **pre-season promotions in Q1** to pull demand forward and stabilize early Q2 volume.
+- Tighten coordination between sales forecasts, fulfillment schedules, and customer reactivation outreach.
 
-- Segment all accounts by **GP% and sales volume**, and prioritize **"high-margin / low-volume" customers** for targeted upselling campaigns.
-- Deploy **predictive modeling** (e.g., churn prediction or LTV estimation) for accounts with declining performance.
-- Offer **relationship-based incentives** (e.g., loyalty pricing, strategic discounts) to retain top-value accounts.
 
-#### 4. Operational Adjustments
+### 5. Transition to Proactive, Scenario-Based Planning
 
-- Evaluate supply chain responsiveness for Q2/Q3, as volatility in April may point to fulfillment or forecasting gaps.
-- Integrate this report into **monthly operations meetings** to align logistics and production with actual demand trends.
-- Use **scatter plot quadrant analysis** to define client segments for growth vs retention vs reactivation.
+- Shift from reactive reporting to **scenario-based planning using dynamic dashboards**:
+  - Build what-if simulations for product and regional changes
+  - Use variance tracking to anticipate rather than explain gaps
+- Integrate performance alerts (e.g., “April GP% below threshold”) to guide weekly decision-making.
+- Build feedback loops between actual sales vs planned volume to continuously refine forecasts.
+
+These recommendations are designed not only to mitigate current performance gaps but to build the organizational capability needed to adapt to future volatility and segment complexity.
 
 ---
 
 ## Action Plan
 
-- Prepare follow-up presentation for Sales and Ops teams  
-- Schedule deep-dives into target countries and product families  
-- Share segmented customer lists with Account Managers  
-- Track post-recommendation KPIs over the next 3–6 months
+A phased plan is recommended to ensure implementation and follow-up of the strategic insights revealed in this report:
+
+1. **Internal Alignment**
+   - Schedule stakeholder presentation with Sales, Product, and Operations teams
+   - Share detailed insights and recommendations per region, product, and segment
+
+2. **Account Activation**
+   - Assign account managers to "Grow" segment accounts (high GP%, low volume)
+   - Launch pilot reactivation campaigns with clear volume targets
+
+3. **Product Strategy Execution**
+   - Realign Q2 Indoor/Outdoor campaign timing based on seasonal volatility
+   - Initiate pricing/bundling testing on volatile SKUs
+
+4. **Operational Enhancements**
+   - Create monthly KPI review cadence with alerts for April risk zone
+   - Adjust inventory planning models using Q2 patterns
+
+5. **Dashboard Enhancement**
+   - Expand dashboard to include budget, forecast, and satisfaction (NPS) metrics
+   - Enable drill-through to account- and SKU-level insights in next release
 
 ---
 
 ## Business Value
 
-- Provides clear visibility on year-over-year performance
-- Enables strategic interventions across teams
-- Supports profitability-driven account and product decisions
-- Acts as foundation for scalable, KPI-based monitoring
+This report delivers cross-functional business value by serving as both a diagnostic and decision-making tool:
+
+- **Risk Detection**: Enables early identification of structural performance issues
+- **Growth Acceleration**: Highlights revenue opportunities in stable and underutilized segments
+- **Strategic Focus**: Drives prioritization by product category, customer segment, and region
+- **Operational Efficiency**: Supports forecasting and fulfillment with empirical trend data
+- **Collaboration**: Unites sales, marketing, and operations teams around a common KPI framework
 
 ---
 
 ## Use Case Scenario
 
-- Sales managers use this dashboard weekly to track regional performance and trigger follow-ups on underperforming accounts.  
-- Product managers rely on product-type performance trends to adjust campaigns and align production with demand.  
-- Executives use KPI comparisons to benchmark progress and allocate resources strategically.
+The report supports various roles across the organization:
+
+- **Sales Teams**  
+  Use the dashboard weekly to monitor declining accounts and regions, then trigger follow-ups.
+
+- **Product Managers**  
+  Review product-level KPIs to refine promotional plans and align production with actual demand.
+
+- **Executives & Leadership**  
+  Benchmark strategic performance vs previous year and align quarterly targets to regional/product trends.
+
+- **Data & BI Teams**  
+  Extend the model with forecast, budget, and LTV metrics for forward-looking business planning.
 
 ---
 
 ## Role in the Project
 
-- Designed and implemented the complete data model in Power BI  
-- Developed all DAX measures, including dynamic switching logic  
-- Cleaned and transformed source data in Power Query (deduplicated, renamed)  
-- Designed dashboard layout for stakeholders with final dark theme  
-- Conducted insight generation and documented strategic recommendations
+- Built complete Power BI model and visuals
+- Designed final report layout (light blue theme)
+- Created dynamic DAX measures (YTD, PYTD, SWITCH)
+- Applied Power Query for data cleanup and normalization
+- Led insight generation, analysis, and documentation 
 
 ---
 
 ## Conclusion
 
-This report consolidates key performance indicators into a dynamic and accessible format, offering a year-over-year comparison of Plant Co.'s sales, quantity, and gross profit.
+This performance report equips Plant Co. with a scalable, insight-driven tool for assessing YTD progress and identifying strategic levers for recovery and growth.
 
-Stakeholders are equipped to:
+Although 2024 reflects a significant drop in both sales and volume, the company's ability to maintain margins points to strong fundamentals. More importantly, the segmentation and underperformance patterns revealed in this dashboard provide a clear roadmap for targeted interventions.
 
-- Detect early signs of commercial underperformance
-- Make region- and product-specific decisions
-- Take action on customer segmentation insights
-  
-With consistent GP% and visible drops in volume, strategic focus should shift toward recovering quantity while retaining profit margins. 
+With actionable insights, consistent KPI logic, and modular DAX-driven architecture, this report forms a foundation for smarter, faster, and more aligned decision-making across the organization.
