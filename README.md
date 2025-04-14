@@ -57,13 +57,19 @@ Given the competitive nature of the industry and the increasing need for data-dr
 
 The dataset used in this analysis is a simulated dataset created for educational purposes. It includes tables such as:
 
-| Table         | Description                                                                 |
-|---------------|-----------------------------------------------------------------------------|
-| `Fact_Sales`    | Transactional data including quantity, sales (USD), and cost of goods sold  |
-| `Dim_Product`   | Product attributes: family, size, and type                                  |
-| `Dim_Account`   | Customer location, country, and segmentation info                           |
-| `Dim_Date`      | Calendar table used for time intelligence (YTD, PYTD)                       |
-| `Slic_Values`   | Parameter table for dynamic metric switching (Sales, GP, Quantity)          |
+## Data Sources
+
+The dataset used in this analysis is a simulated dataset created for educational purposes. It includes the following tables:
+
+## Data Sources
+
+The dataset used in this analysis is a simulated dataset created for educational purposes. It includes the following tables (imported from Excel):
+
+| Table             | Description                                                        |
+|-------------------|--------------------------------------------------------------------|
+| `Plant_FACT`       | Transaction-level data with Quantity, Sales (USD), and COGS (USD) |
+| `Accounts`         | Customer details including country, region, and segmentation      |
+| `Plant_Hierarchy`  | Product categorization: family, group, and type                   |
 
 ---
 
@@ -107,15 +113,16 @@ Visual components include:
 
 ### Pseudocode
 
-1. Load Fact and Dimension tables into Power BI  
+1. Load Excel-based tables (`Plant_FACT`, `Accounts`, `Plant_Hierarchy`) into Power BI  
 2. In Power Query:  
    - Remove duplicates  
    - Rename columns for consistency  
    - Change data types and promote headers  
-3. Define base and time intelligence measures in DAX  
-4. Create SWITCH-based logic for dynamic metric selection  
-5. Build dashboard visuals  
-6. Test and validate calculations
+3. Create `Dim_Date` and `Slc_Values` directly in Power BI  
+4. Define base and time intelligence measures in DAX (e.g., YTD, PYTD, Gross Profit Margin)  
+5. Implement dynamic metric selection using `SWITCH` and slicer table  
+6. Design dashboard visuals (KPI cards, charts, treemaps, scatter plots)  
+7. Test logic with known values and ensure expected results across all filters
 
 ---
 
@@ -137,10 +144,22 @@ Visual components include:
 
   ![image](https://github.com/user-attachments/assets/e3f8cc7c-ec5f-4d0e-b6d3-6c8334537b8a)
 
-- Ensured proper table relationships in model view
+---
 
-  ![image](https://github.com/user-attachments/assets/9fc068ff-59a6-4ef7-89f8-6b40d7298282)
+### Supporting Tables Created in Power BI
 
+- Two additional tables were manually created to support time intelligence and interactive metric selection:
+
+  | Table         | Purpose                                                                 |
+  |---------------|-------------------------------------------------------------------------|
+  | `Dim_Date`     | Calendar table used for YTD and PYTD DAX calculations. Created using the `CALENDAR` DAX function or imported as a prebuilt date dimension. |
+  | `Slc_Values`   | Slicer table containing metric labels (Sales, Quantity, Gross Profit), used in `SWITCH` logic for dynamic KPI selection. |
+
+---
+
+### Ensured proper table relationships in model view
+
+   ![image](https://github.com/user-attachments/assets/9fc068ff-59a6-4ef7-89f8-6b40d7298282)
 
 ---
 
@@ -186,7 +205,7 @@ YTD vs PYTD Quantity = [YTD_Quantity] - [PYTD_Quantity]
 ```sql
 Selected YTD = 
 SWITCH(
-    SELECTEDVALUE(Slic_Values[Metric]),
+    SELECTEDVALUE(Slc_Values[Values]),
     "Sales", [YTD_Sales],
     "Quantity", [YTD_Quantity],
     "Gross Profit", [YTD_GrossProfit]
@@ -194,7 +213,7 @@ SWITCH(
 
 Selected PYTD = 
 SWITCH(
-    SELECTEDVALUE(Slic_Values[Metric]),
+    SELECTEDVALUE(Slc_Values[Values]),
     "Sales", [PYTD_Sales],
     "Quantity", [PYTD_Quantity],
     "Gross Profit", [PYTD_GrossProfit]
@@ -400,8 +419,8 @@ A phased plan is recommended to ensure implementation and follow-up of the strat
    - Adjust inventory planning models using Q2 patterns
 
 5. **Dashboard Enhancement**
-   - Expand dashboard to include budget, forecast, and satisfaction (NPS) metrics
-   - Enable drill-through to account- and SKU-level insights in next release
+   - Expand dashboard to include budget, forecast, and satisfaction (Net Promoter Score) metrics
+   - Enable drill-through to account- and Stock Keeping Unit Level insights in next release
 
 ---
 
