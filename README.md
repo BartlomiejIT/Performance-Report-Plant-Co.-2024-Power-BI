@@ -451,7 +451,7 @@ The report supports various roles across the organization:
   Benchmark strategic performance vs previous year and align quarterly targets to regional/product trends.
 
 - **Data & BI Teams**  
-  Extend the model with forecast, budget, and LTV metrics for forward-looking business planning.
+  Extend the model with forecast, budget, and Life Time Value metrics for forward-looking business planning.
 
 ---
 
