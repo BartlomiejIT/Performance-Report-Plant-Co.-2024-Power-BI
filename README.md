@@ -56,14 +56,6 @@ Given the competitive nature of the industry and the increasing need for data-dr
 
 ## Data Sources
 
-The dataset used in this analysis is a simulated dataset created for educational purposes. It includes tables such as:
-
-## Data Sources
-
-The dataset used in this analysis is a simulated dataset created for educational purposes. It includes the following tables:
-
-## Data Sources
-
 The dataset used in this analysis is a simulated dataset created for educational purposes. It includes the following tables (imported from Excel):
 
 | Table             | Description                                                        |
